@@ -34,5 +34,5 @@ export const ItemListContainer = () => {
         .catch((error) => console.log(error));
     }, [category]); 
   
-    return <>{isLoading ? <div className="text-center"><img className={`${styles.loading}`} src="../../../public/img/loading.gif" alt="" /></div> : <ItemList products={products} />}</>;
+    return <>{isLoading ? <div className="text-center"><img className={`${styles.loading}`} src="/img/loading.gif" alt="" /></div> : <ItemList products={products} />}</>;
   };
