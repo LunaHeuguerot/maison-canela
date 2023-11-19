@@ -7,3 +7,8 @@
     font-weight: bolder;
     font-size: larger;
 }
+
+.loading {
+    margin-top: 7rem;
+    width: 200px;
+}

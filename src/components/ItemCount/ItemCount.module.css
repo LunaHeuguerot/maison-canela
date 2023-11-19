@@ -1,0 +1,36 @@
+
+.countContainer {
+  width: 14rem;
+  flex-direction: column;
+  height: 2rem;
+  align-items: center;
+  justify-content: center;
+  color: #73746D;
+  background-color: #DDE5B6;
+  border: 1px solid #ADC178;
+  border-radius: 8px;
+}
+  
+btn {
+  color: #73746D;
+  background-color: #DDE5B6;
+  border-color: #ADC178;
+  margin: 0 1px;
+}
+  
+btn:hover {
+  color: #DDE5B6;
+  background-color: #73746D;
+}
+  
+btnOutlinePrimary {
+  color: #73746D;
+  border-color: #ADC178;
+  margin-top: 5px;
+}
+  
+btnOutlinePrimary:hover {
+  color: #DDE5B6;
+  border-color: #DDE5B6;
+}
+  
