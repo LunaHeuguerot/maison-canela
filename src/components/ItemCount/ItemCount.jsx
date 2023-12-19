@@ -21,7 +21,7 @@ export const ItemCount = ({ stock, initial = 1, onAdd }) => {
   return (
     <div className={`${styles.countContainer} d-flex flex-column col-2 justify-content-center align-content-center p-4`}>
       <div>
-        <button className={`${styles.btn} btn btn-outline-secondary mx-3`} onClick={increment}>
+        <button className={`${styles.btn} btn btn-outline-secondary mx-3`} onClick={increment} >
           +
         </button>
         <strong>{count}</strong>
@@ -29,6 +29,11 @@ export const ItemCount = ({ stock, initial = 1, onAdd }) => {
           -
         </button>
       </div>
+      <div>        
+        <button className={`${styles.card} button`} onClick={() => onAdd(count)}>Agregar al carrito</button>
+      </div>
+      
+      
     </div>
   );
 };
