@@ -1,21 +1,22 @@
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { db } from "../../config/firebaseConfig";
+import { useContext } from "react";
+import { FirebaseContext } from "../../context/FirebaseContext";
+import { CartContext } from "../../context/CartContext";
+import "./Order.css";
 
 export const Order = () => {
-  const addOrderDB = (cartProducts, userData, total) => {
-    const newOrder = {
-        buyer: userData,
-        items: cartProducts,
-        date: serverTimestamp(),
-        total
-
-    }
-
-  addDoc(collection(db, "orders"), newOrder);
-
-  }
+  const { orderID } = useContext(FirebaseContext);
+  const { cartItems, totalCart } = useContext(CartContext);
 
   return (
-    <div>Order</div>
+    <div className="order-container">
+      <h2 className="order-title">¡Tu pedido ha sido realizado con éxito!</h2>
+      <h3 className="order-number">Tu número de orden es: {orderID}</h3>
+      <h5 className="order-details">Detalle del pedido:</h5>
+      <ul>
+        {cartItems.map((item) => (
+          <li key={item.id} className="order-item">{item.quantity} - {item.name}</li>
+        ))}
+      </ul>
+    </div>
   )
 }

@@ -18,14 +18,28 @@ export const Form = () => {
   };
 
   return (
-    <div onSubmit={handleForm}>
-      <div>
-        <p label={"Nombre"} value={name} onChange={(e) => setName(e.target.value)} />
-        <p label={"Email"} value={email} onChange={(e) => setEmail(e.target.value)} />
-        <button type="submit" variant="contained" color="success">
-          Comprar
-        </button>
-      </div>
+    <div>
+      <form onSubmit={handleForm}>
+        <label>
+          Nombre:
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </label>
+        <br />
+        <label>
+          Email:
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </label>
+        <br />
+        <button type="submit">Enviar</button>
+      </form>
     </div>
   );
 };

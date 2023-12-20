@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { CartContext } from "../../context/CartContext";
+// import { CartContext } from "../../context/CartContext";
 import { FirebaseContext } from "../../context/FirebaseContext";
 import { ItemList } from "../ItemList/ItemList";
 import styles from "./ItemListContainer.module.css";

@@ -36,15 +36,24 @@ export const FirebaseContextProvider = ( {children} ) =>{
     }
   };
 
-  const addOrderDB = (cartProducts, userData, total) => { 
+  const discountStock = async (product) => { 
+    const productRef = doc( db, "products", product.id );
+    const newStock = product.stock - 1;
+    await updateDoc(productRef, { stock: newStock } )
+    
+ }
+
+
+  const addOrderDB = async (cartProducts, userData, total) => { 
     const newOrder = {
       buyer: userData,
       items: cartProducts,
       data: serverTimestamp(),
       total
     }
-    console.log(newOrder)
-    addDoc( collection(db, "orders"), newOrder );
+    
+    const newDoc = await addDoc( collection(db, "orders"), newOrder );
+    setOrderID(newDoc.id);
   }
 
     const objectValue = {
@@ -53,10 +62,10 @@ export const FirebaseContextProvider = ( {children} ) =>{
         isLoading,
         getProductsDB,
         getProductById,
-        // discountStock,
+        discountStock,
         addOrderDB
 
     }
     
-    return <FirebaseContext.Provider value={{}}> {children} </FirebaseContext.Provider>
+    return <FirebaseContext.Provider value={objectValue}> {children} </FirebaseContext.Provider>
 }
