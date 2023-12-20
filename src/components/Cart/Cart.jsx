@@ -7,7 +7,7 @@ import "./Cart.css";
 
 export const Cart = () => {
   const navigate = useNavigate();
-  const { cartItems, totalCart, removeItem, updateItemQuantity } = useContext(CartContext);
+  const { cartItems, totalCartItems, removeItem, updateItemQuantity } = useContext(CartContext);
 
   //FORM
   const { addOrderDB } = useContext(FirebaseContext);
@@ -26,13 +26,14 @@ export const Cart = () => {
     } else {
       navigate("/confirmar-compra");
     }
+    
   };
 
   //FORM
   const handleForm = (e) => {
     e.preventDefault();
 
-    addOrderDB(cartItems, {name, email}, totalCart);
+    addOrderDB(cartItems, {name, email}, totalCartItems);
     
     setName("");
     setEmail("");
@@ -55,32 +56,14 @@ export const Cart = () => {
             <button onClick={() => removeItem(item.id)}>Eliminar</button>
           </div>
         ))}
-      <p style={{ fontWeight:"bold", color:"#444444", fontSize: "larger" }}>Total del carrito: ${totalCart}</p>
+      <p style={{ fontWeight:"bold", color:"#444444", fontSize: "larger" }}>Total del carrito: ${totalCartItems}</p>
+      <div>
+        <button onClick={handleConfirmOrder}>Confirmar compra</button>
+      </div>
       </div>
   
-      <div className="cart-form">
-        <form onSubmit={handleForm}>
-          <label>
-            Nombre:
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              />
-          </label>
-          <br />
-          <label>
-            Email:
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              />
-          </label>
-          <br />
-          <button onClick={handleConfirmOrder}>Confirmar compra</button>
-        </form>
-      </div>
+      
+      
 
     </div>
   );
