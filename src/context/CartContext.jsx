@@ -20,7 +20,7 @@ export const CartContextProvider = ({ children }) => {
 
   const [cartItems, setCartItems] = useState(storedCart);
 
-  const [totalCart, setTotalCart] = useState(0);
+  const [totalCartItems, setTotalCartItems] = useState(0);
 
   const [totalQuantity, setTotalQuantity] = useState(0);
 
@@ -68,7 +68,7 @@ export const CartContextProvider = ({ children }) => {
 
   const handleTotal = () => {
     const total = cartItems.reduce((suma, item) => suma + item.subTotal, 0);
-    setTotalCart(total);
+    setTotalCartItems(total);
   };
 
   const handleTotalQuantity = () => {
@@ -87,7 +87,7 @@ export const CartContextProvider = ({ children }) => {
 
   const contextValue = {
     cartItems,
-    totalCart,
+    totalCartItems,
     totalQuantity,
     addItem,
     removeItem,

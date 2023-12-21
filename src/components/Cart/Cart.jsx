@@ -2,42 +2,26 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "../../context/CartContext";
 import Swal from "sweetalert2";
-import { FirebaseContext } from "../../context/FirebaseContext";
 import "./Cart.css";
 
 export const Cart = () => {
-  const navigate = useNavigate();
-  const { cartItems, totalCart, removeItem, updateItemQuantity } = useContext(CartContext);
-
-  //FORM
-  const { addOrderDB } = useContext(FirebaseContext);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const navigate = useNavigate()
+  const { cartItems, totalCartItems, removeItem, updateItemQuantity } = useContext(CartContext)
 
   const handleConfirmOrder = () => {
-    if (cartItems.length === 0) {
-      return Swal.fire({
-        icon: "error",
-        title: "Carrito de compras vacío",
-        text: "Agregar productos para poder continuar",
-        timerProgressBar: true,
-        timer: 5000
-      });
-    } else {
-      navigate("/confirmar-compra");
-    }
-    
-  };
+      if (cartItems.length === 0) {
+          Swal.fire({
+              title: "Carrito de compras vacio",
+              text: "Por favor, agrega productos antes de finalizar la compra",
+              icon: "error"
+          })
 
-  //FORM
-  const handleForm = (e) => {
-    e.preventDefault();
+      } else {
+          navigate("/confirmar-compra")
+          
+      }
+  }
 
-    addOrderDB(cartItems, {name, email}, totalCart);
-    
-    setName("");
-    setEmail("");
-  };
 
   return (
     <div className="cart-container"> 
@@ -56,40 +40,12 @@ export const Cart = () => {
             <button onClick={() => removeItem(item.id)}>Eliminar</button>
           </div>
         ))}
-      <p style={{ fontWeight:"bold", color:"#444444", fontSize: "larger" }}>Total del carrito: ${totalCart}</p>
+      <p style={{ fontWeight:"bold", color:"#444444", fontSize: "larger" }}>Total del carrito: ${totalCartItems}</p>
+      <button onClick={handleConfirmOrder}>Confirmar compra</button>
       </div>
   
-      <div className="cart-form">
-        <form onSubmit={handleForm}>
-          <label>
-            Nombre:
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              />
-          </label>
-          <br />
-          <label>
-            Email:
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              />
-          </label>
-          <label>
-            Confirmar Email:
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              />
-          </label>
-          <br />
-          <button onClick={handleConfirmOrder}>Confirmar compra</button>
-        </form>
-      </div>
+      
+      
 
     </div>
   );

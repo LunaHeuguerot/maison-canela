@@ -1,7 +1,7 @@
 import styles from "./Item.module.css";
 import { Link } from "react-router-dom";
 
-export const Item = ({id, name, img, description }) => {
+export const Item = ( {id, name, img, description } ) => {
   return (
     <div>
       <div className={`${styles.card}`}>

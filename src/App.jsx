@@ -8,8 +8,8 @@ export const App = () => {
   return (
     <>
 
-    <ErrorBoundary>
-      <BrowserRouter>
+    <BrowserRouter>
+      <ErrorBoundary>
         <FirebaseContextProvider>
           <CartContextProvider>
             <NavBar />
@@ -22,8 +22,8 @@ export const App = () => {
             </Routes>
           </CartContextProvider>
         </FirebaseContextProvider>
-      </BrowserRouter>
-    </ErrorBoundary>
+      </ErrorBoundary>
+    </BrowserRouter>
     </>
   )
 }
