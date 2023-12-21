@@ -1,47 +1,24 @@
-import { collection, getDocs, query, where, doc, getDoc } from "firebase/firestore";
-import { useEffect, useState } from "react";
-import {db} from "../../config/firebaseConfig";
-import { ItemList } from "../ItemList/ItemList";
+import { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
+// import { CartContext } from "../../context/CartContext";
+import { FirebaseContext } from "../../context/FirebaseContext";
+import { ItemList } from "../ItemList/ItemList";
 import styles from "./ItemListContainer.module.css";
 
 export const ItemListContainer = () => {
-  const { category } = useParams()
+  const { product, products, isLoading, getProductsDB, getProductById } = useContext(FirebaseContext);
+  // const { totalQuantity } = useContext(CartContext);
 
-    const [products, setProducts] = useState([])
-    const [isLoading, setIsLoading] = useState(true)
-    const [setProduct] = useState(null)
+  const { category } = useParams();
 
-    const getProductsDB = async (category) => {
-        const myProducts = category
-            ? query(collection(db, "products"), where("category", "==", category))
-            : query(collection(db, "products"))
-        const resp = await getDocs(myProducts)
-        if (resp.size === 0) {
-        }
 
-        const productList = resp.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
-        setProducts(productList)
-        setIsLoading(false)
-    }
+  useEffect(() => {
+    getProductsDB(category);
+    getProductById("");
 
-    const getProductById = async (id) => {
-        const productRef = doc(db, "products", id)
-        const resp = await getDoc(productRef)
-        if (resp.exists()) {
-            const prod = {
-                id: resp.id,
-                ...resp.data()
-            }
-            setProduct(prod)
-        }
-    }
-
-    useEffect(() => {
-        setIsLoading(true)
-        getProductsDB(category)
-        getProductById(" ")
-    }, [category])
+    console.log(product)
+    
+  }, [category]); 
   
     return <>{isLoading ? <div className="text-center"><img className={`${styles.loading}`} src="/img/loading.gif" alt="" /></div> : <ItemList products={products} />}</>;
   };

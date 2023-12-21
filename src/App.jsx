@@ -9,20 +9,20 @@ export const App = () => {
     <>
 
     <ErrorBoundary>
-    <BrowserRouter>
-      <FirebaseContextProvider>
-        <CartContextProvider>
-          <NavBar />
-          <Routes>
-            <Route path="/" element={<ItemListContainer />} />
-            <Route path="/category/:category" element={<ItemListContainer />} />
-            <Route path="/item/:id" element={<ItemDetailContainer />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/confirmar-compra" element={<Order/>} />
-          </Routes>
-        </CartContextProvider>
-      </FirebaseContextProvider>
-    </BrowserRouter>
+      <BrowserRouter>
+        <FirebaseContextProvider>
+          <CartContextProvider>
+            <NavBar />
+            <Routes>
+              <Route path="/" element={<ItemListContainer />} />
+              <Route path="/category/:category" element={<ItemListContainer />} />
+              <Route path="/item/:id" element={<ItemDetailContainer />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/confirmar-compra" element={<Order/>} />
+            </Routes>
+          </CartContextProvider>
+        </FirebaseContextProvider>
+      </BrowserRouter>
     </ErrorBoundary>
     </>
   )
