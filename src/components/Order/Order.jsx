@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { CartContext } from "../../context/CartContext";
 import { Form } from "../Form/Form";
-import "./Order.css";
+import "./Order.modules.css";
 
 export const Order = () => {
   const { cartItems, totalCartItems } = useContext(CartContext)
@@ -33,3 +33,4 @@ return (
   </div>
 )
 }
+

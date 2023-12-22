@@ -2,10 +2,10 @@ import { useContext, useState } from "react";
 import { FirebaseContext } from "../../context/FirebaseContext";
 import { CartContext } from "../../context/CartContext";
 
-export const Form = ({ cartItems, totalCartItems }) => {
+export const Form = () => {
 
-    const { addOrderDB } = useContext(FirebaseContext)
-    const { clearCartItems, setTotalQuantity } = useContext(CartContext)
+    const { addOrderDB, orderId } = useContext(FirebaseContext)
+    const { cartItems, totalCartItems, clearCartItems, setTotalQuantity } = useContext(CartContext)
 
     const [name, setName] = useState("")
     const [surname, setSurname] = useState("")
@@ -13,7 +13,7 @@ export const Form = ({ cartItems, totalCartItems }) => {
     const [email, setEmail] = useState("")
     const [confirmEmail, setConfirmEmail] = useState("")
     const [emailError, setEmailError] = useState("")
-    const [orderInfo, setOrderInfo] = useState(null)
+    const [orderInfo, setOrderInfo] = useState({})
 
     const handleForm = async (e) => {
         e.preventDefault()
@@ -25,23 +25,13 @@ export const Form = ({ cartItems, totalCartItems }) => {
         setEmailError("")
 
         const userData = { name, surname, phone, email }
-        const orderId = await addOrderDB(cartItems, userData, totalCartItems)
+        addOrderDB(cartItems, userData, totalCartItems)
 
         setOrderInfo({
-            orderId,
+            userData,
             items: cartItems,
             total: totalCartItems,
         })
-
-        clearCartItems()
-        setTotalQuantity(0)
-
-        setName("")
-        setSurname("")
-        setPhone("")
-        setEmail("")
-        setConfirmEmail("")
-        addOrderDB()
     }
 
     return (
@@ -121,22 +111,22 @@ export const Form = ({ cartItems, totalCartItems }) => {
                 Finalizar compra
             </button>
         </form>
-
+/*
         {orderInfo && (
                 <div className="alert alert-success mt-3" role="alert" style={{ width: "40%" }}>
                     <h4 className="alert-heading">¡Compra realizada con éxito!</h4>
-                    <p>Tu orden con ID número {orderInfo.orderId} ha sido procesada.
+                    <p>Tu orden con ID número {orderId} ha sido procesada.
                     <br></br>
                     <br></br>
                     Detalles de la compra:</p>
                     <ul>
-                        {orderInfo.items.map((item) => (
+                        {cartItems.map((item) => (
                             <li key={item.id}>
                                 {item.name} - {item.quantity} x ${item.price} = ${item.quantity * item.price}
                             </li>
                         ))}
                     </ul>
-                    <b>Total de la compra: ${orderInfo.items.reduce((total, item) => total + item.quantity * item.price, 0)}</b>
+                    <b>Total de la compra: ${cartItems.reduce((total, item) => total + item.quantity * item.price, 0)}</b>
                 </div>
             )}
         </div>

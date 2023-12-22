@@ -1,5 +1,6 @@
+/* order.module.css */
 
-.card {
+.order {
   width: 500px;
   border: 1px solid #B9B9A1; 
   border-radius: 8px;
@@ -8,14 +9,14 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
   
-.titulo {
+.order-title {
   text-align: center;
   font-size: 24px;
   margin-bottom: 8px;
   color: #ADC178; 
 }
   
-.imagen {
+.order-image {
   width: 250px;
   height: 250px;
   margin-left: 2px;
@@ -23,13 +24,13 @@
   object-fit: cover;
 }
   
-.descrip {
+.order-description {
   font-size: 20px;
   color: #444444; 
   margin-bottom: 3px;
 }
   
-.card button {
+.order-button {
   color: #EDEDDF; 
   background-color: #ADC178;
   border-color: #73746D; 
@@ -39,8 +40,7 @@
   cursor: pointer;
 }
   
-.card button:hover {
+.order-button:hover {
   color: #DDE5B6;
   background-color: #73746D;
 }
-  

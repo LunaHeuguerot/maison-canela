@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "../../context/CartContext";
 import Swal from "sweetalert2";
-import "./Cart.css";
+import "./Cart.modules.css";
 
 export const Cart = () => {
   const navigate = useNavigate()
@@ -44,7 +44,7 @@ export const Cart = () => {
       <button onClick={handleConfirmOrder}>Confirmar compra</button>
       </div>
   
-      
+        
       
 
     </div>

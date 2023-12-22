@@ -1,10 +1,11 @@
 import { addDoc, collection, serverTimestamp} from "firebase/firestore";
-import { createContext } from "react";
+import { createContext, useState } from "react";
 import { db } from "../config/firebaseConfig";
 
 export const FirebaseContext = createContext(null)
 
 export const FirebaseContextProvider = ({ children }) => {
+    const [orderId, setorderId] = useState("");
 
     const addOrderDB = async (cartItems, userData, total) => {
         const newOrder = {
@@ -12,15 +13,16 @@ export const FirebaseContextProvider = ({ children }) => {
             items: cartItems,
             data: serverTimestamp(),
             total,
-        }
-        console.log(newOrder) 
-        const orderRef = await addDoc(collection(db, "orders"), newOrder)
-        return orderRef.id
+        } 
+        const orderRef = await addDoc(collection(db, "orders"), newOrder);
+        return setorderId(orderRef.id);
     }
 
     const contextValue = {
-        addOrderDB
+        addOrderDB,
+        orderId,
     }
 
     return <FirebaseContext.Provider value={contextValue}>{children}</FirebaseContext.Provider>
+
 }
