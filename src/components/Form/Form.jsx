@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { FirebaseContext } from "../../context/FirebaseContext";
 import { CartContext } from "../../context/CartContext";
+import "./Form.modules.css";
 
 export const Form = () => {
 
@@ -14,6 +15,7 @@ export const Form = () => {
     const [confirmEmail, setConfirmEmail] = useState("")
     const [emailError, setEmailError] = useState("")
     const [orderInfo, setOrderInfo] = useState({})
+    const [isFormVisible, setIsFormVisible] = useState(true);
 
     const handleForm = async (e) => {
         e.preventDefault()
@@ -32,10 +34,15 @@ export const Form = () => {
             items: cartItems,
             total: totalCartItems,
         })
+
+        setIsFormVisible(false);
     }
 
     return (
-        <div>
+    <div className="container">
+    {isFormVisible &&(    
+        <div className="row">       
+        <div className="col-md-6">             
         <form className="p-4" onSubmit={handleForm}>
             <div className="mb-3">
                 <label htmlFor="name" className="form-label">
@@ -47,7 +54,7 @@ export const Form = () => {
                     id="name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                />
+                    />
             </div>
 
             <div className="mb-3">
@@ -60,7 +67,7 @@ export const Form = () => {
                     id="surname"
                     value={surname}
                     onChange={(e) => setSurname(e.target.value)}
-                />
+                    />
             </div>
 
             <div className="mb-3">
@@ -73,7 +80,7 @@ export const Form = () => {
                     id="phone"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                />
+                    />
             </div>
 
             <div className="mb-3">
@@ -89,7 +96,7 @@ export const Form = () => {
                         setEmail(e.target.value)
                         setEmailError("") 
                     }}
-                />
+                    />
             </div>
 
                 <label htmlFor="confirmEmail" className="form-label">
@@ -104,16 +111,20 @@ export const Form = () => {
                         setConfirmEmail(e.target.value)
                         setEmailError("")
                     }}
-                />
+                    />
                 {emailError && <div className="invalid-feedback">{emailError}</div>} 
 
-            <button type="submit" className="btn btn-primary m-2">
+            <button type="submit" className="custom-btn-primary">
                 Finalizar compra
             </button>
         </form>
-/*
-        {orderInfo && (
-                <div className="alert alert-success mt-3" role="alert" style={{ width: "40%" }}>
+        </div>
+        </div>
+        )}    
+
+        {!isFormVisible && orderInfo && (
+            <div className="col-md-8"> 
+                <div className="alert alert-success mt-3" role="alert" style={{ width: "60%" }}>
                     <h4 className="alert-heading">¡Compra realizada con éxito!</h4>
                     <p>Tu orden con ID número {orderId} ha sido procesada.
                     <br></br>
@@ -128,7 +139,8 @@ export const Form = () => {
                     </ul>
                     <b>Total de la compra: ${cartItems.reduce((total, item) => total + item.quantity * item.price, 0)}</b>
                 </div>
+            </div>
             )}
-        </div>
+    </div>
     )
 }

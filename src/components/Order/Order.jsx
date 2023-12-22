@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
 import { CartContext } from "../../context/CartContext";
 import { Form } from "../Form/Form";
-import "./Order.modules.css";
 
 export const Order = () => {
   const { cartItems, totalCartItems } = useContext(CartContext)
@@ -12,6 +11,8 @@ const [userData, setUserData] = useState({
   phone: "",
   email: "",
 })
+
+
 
 const handleFormChange = (e) => {
   setUserData({
